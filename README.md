@@ -3,8 +3,9 @@
 
 Opinionated mini web library for Bun (POC)
 
-
-
+## Demo
+Routes need to be in the routes folder
+Controllers need to be in the controllers folder
 
 ## Demo
 ```js
