@@ -6,8 +6,8 @@ export class App {
     this.router = createRouter();
   }
 
-  use(path, handler) {
-    this.router.insert(path, { handler });
+  use(method, path, handler) {
+    this.router.insert(`${method} ${path}`, { handler });
   }
 
   useRoutes(routesFile) {
@@ -15,17 +15,17 @@ export class App {
     const parsedRoutes = parseRoutes(routes.default);
 
     parsedRoutes.forEach((route) => {
-      const { path, handler } = route;
+      const { method, path, handler } = route;
       if (path && handler) {
-        this.router.insert(path, { handler });
+        this.use(method, path, handler);
       }
     });
   }
 
   fetch = (req) => {
     const { pathname } = new URL(req.url);
-
-    const matchedRoute = this.router.lookup(pathname);
+    const method = req.method;
+    const matchedRoute = this.router.lookup(`${method} ${pathname}`);
 
     if (matchedRoute) {
       req = matchedRoute;
@@ -38,7 +38,7 @@ export class App {
   serve(port) {
     this.server = Bun.serve({
       port,
-      fetch: this.fetch.bind(this),
+      fetch: (req) => this.fetch(req),
     });
   }
 }

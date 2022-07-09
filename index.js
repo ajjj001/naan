@@ -2,15 +2,19 @@ import { App } from "./src";
 
 const app = new App();
 
-app.use("/", (req) => {
+app.use("GET", "/", (req) => {
   return new Response("Hello World!");
 });
 
-app.use("/v1/**", (req) => {
+app.use("GET", "/v1/**", (req) => {
   return new Response("Wild card route");
 });
 
-app.use("/method", (req) => {
+app.use("POST", "/v1/users", (req) => {
+  return new Response("POST /v1/users");
+});
+
+app.use("GET", "/method", (req) => {
   return new Response(req.method);
 });
 
