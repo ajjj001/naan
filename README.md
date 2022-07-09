@@ -1,7 +1,7 @@
 
 # naan
 
-Opinionated mini web library for Bun (POC)
+Proof of concept for building a mini web framework for Bun.
 
 ## Demo
 Route files need to be in the routes folder.
